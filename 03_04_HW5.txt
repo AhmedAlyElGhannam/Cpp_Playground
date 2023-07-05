@@ -1,0 +1,17 @@
+#include<stream // should be iostream + missing ">"
+using namespace STD // std should be lowercase
+
+cout << "work smart not hard\n"; // cout statement outside main
+
+int maIN()
+{
+	cout << "Children must be taught how to think, not what to think" // missing ";"
+	cout << "We worry about what a child will become "tomorrow", yet we forget that he is someone today\n"; // using "" inside the string
+	cout << "Children are not things to be molded"<", but are people to be unfolded\n"; //< should be <<
+	cout << "Each day of our lives we make deposits in the memory banks of our children." << end; // end instead of endl
+	cout << ""It is easier to build strong children than to repair broken men"" << "\n"; // string is between ""__""
+	cout >> "Children need models rather than critics\n"; // << instead of >>
+	out << "Children have never been very good at listening to their elders, but they have never failed to imitate them"; // cout instead of out
+	cout < "Children are our most valuable resource\n"; // < instead of <<
+// missing return statement
+// missing "}"
