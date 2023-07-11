@@ -4,4 +4,4 @@ I am---mainly---following the course titled: \
 All the codes contained here are all the assignments/homework/projects included in the course. \
 Projects Highlights are: \
 09_13_HW3: Employee Management \
-10_10_HW3: Tic-Tac-Toe Game \
+10_10_HW3: Tic-Tac-Toe Game 
