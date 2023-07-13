@@ -14,7 +14,7 @@ string replace_str(string input, string pattern, string to)
 
 int main()
 {	
-	
+	 
 	
 	return 0;
 }
