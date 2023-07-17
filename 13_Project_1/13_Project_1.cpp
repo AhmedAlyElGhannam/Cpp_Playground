@@ -141,9 +141,8 @@ void get_next_patient(int dumDum_specialization)
 				
 		// 1 2 3 4 5 -> 1 is gone -> |_| 2 3 4 5 -> 2 3 4 5 5 (make the last element unregistered) + reduce .registered_patients 
 		for (int i = 0; i < specializations[dumDum_specialization].registered_patients - 1; i++)
-		{
 			specializations[dumDum_specialization].patients[i] = specializations[dumDum_specialization].patients[i+1];
-		}
+		
 		specializations[dumDum_specialization].registered_patients -= 1;
 	}
 	else // no patients
