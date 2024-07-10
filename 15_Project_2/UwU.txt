@@ -1,2 +1,50 @@
 Project 2 has been postponed just to meet my deadline of finishing the course. 
 I will probably return to it at some point after the course is done since it looks fairly simple.
+
+UPDATE:
+I have, once again, returned to finish the course once and for all.
+
+
+TO DO:
+
+*SO, HEAR ME OUT: ALSO A struct FOR LIBRARY THAT CONTAINS INFO ABOUT ALL BOOKS*
+*Food for thought*
+*On second thought, this is MANDATORY in order to also hold the list of users*
+*Basically 5 to 10 are methods for this big chungus of a struct*
+*ALSO, add a list of users && a list of books as variables*
+*ALSO ALSO, constructor()*
+
+
+1. Menu that launches the functions (switch case inside a while that is only exited IFF choice = exit)
+2. struct for each book
+    VAR:
+        ID (unsigned int)
+        name (string)
+        quantity (unsigned char)
+    METHODS:
+        constructor()
+        get_ID()
+        get_quantity()
+        inc_quantity() && dec_quantity()
+3. struct for user
+    VAR:
+        name (string)
+        ID (unsigned int)
+        ListOfBorrowedBooks (array of book IDs)
+    METHODS:
+        constructor()
+        borrow_book()
+        return_book()
+        print_borrowed_books()
+4. DB for storing books is an array of book IDs (makes more sense than making an array of structs! XDD)
+    This DB has array stores the number of copies inside the array and the ID is the index itself
+    *FUTURE ME: this probably won't work so stick to array of structs for now*
+5. Function to search for a book by prefix (takes a string and prints all valid results aka book names that match)
+6. Function to add book (takes name && id)
+7. Function to print a list of users that borrowed a book with ID (takes book ID and returns list of users)
+8. Function to print SORTED list of books (by ID or Name)
+9. Function to add user to user DB
+10. Function to print SORTED list of users
+
+This may help on the long run:
+A. Functions that take ID (book or user) and return their name
