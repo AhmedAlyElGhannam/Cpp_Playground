@@ -6,6 +6,10 @@ using namespace std;
 #define LIB_MAX_BOOKS	50
 #define LIB_MAX_USERS	10
 
+// user ID shenanigans
+unsigned int book_id = 1;
+unsigned int user_id = 1;
+
 struct book
 {
 	// VARS
@@ -17,22 +21,9 @@ struct book
 	book()
 	{
 		name = "";
-		id = 0;
-		copies = 0; 
-	}
-	book(string & _name, unsigned int _id, unsigned char _copies)
-	{
-		name = _name;
-		id = _id;
-		copies = _copies; 
-	}
-	unsigned int get_id()
-	{
-		return id;
-	}
-	unsigned char get_num_of_copies()
-	{
-		return copies;
+		id = book_id;
+		book_id++;
+		copies = 1; 
 	}
 	void inc_copies()
 	{
@@ -55,18 +46,14 @@ struct user
 	user()
 	{
 		name = "";
-		id = 0;
+		id = user_id;
+		book_id++;
 		for (int i = 0; i < BOOK_BORROW_LIMIT; i++)
 			listOfBorrowedBooks[i] = 0;
 	} 
-	user(string & _name, unsigned int _id)
-	{
-		name = _name;
-		id = _id;
-	} 
 	bool is_valid_id()
 	{
-		
+		return 
 	}
 	void borrow_book(unsigned int book_id)
 	{

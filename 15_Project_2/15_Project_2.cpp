@@ -9,28 +9,14 @@ struct book
 	// VARS
 	string name;
 	unsigned int id; 
-	unsigned char copies;
+	unsigned int copies;
 	
 	// METHODS
 	book()
 	{
 		name = "";
 		id = 0;
-		copies = 0; 
-	}
-	book(string & _name, unsigned int _id, unsigned char _copies)
-	{
-		name = _name;
-		id = _id;
-		copies = _copies; 
-	}
-	unsigned int get_id()
-	{
-		return id;
-	}
-	unsigned char get_num_of_copies()
-	{
-		return copies;
+		copies = 1; 
 	}
 	void inc_copies()
 	{
@@ -125,6 +111,10 @@ int main()
 	books[4].id = 17;
 	order_books_by_id(books);
 	print_books_by_name(books);
+	//books[0].copies = 2;
+	cout << books[0].copies << endl;
+	books[0].inc_copies();
+	cout << books[0].copies << endl;
 	
 	return 0;
 }
