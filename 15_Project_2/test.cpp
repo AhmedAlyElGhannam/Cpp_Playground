@@ -120,7 +120,7 @@ struct user
 			book1.dec_copies(); 
 			// add book id to borrowed books list
 			for (int i = 0; i < BOOK_BORROW_LIMIT; i++)
-				if (this->listOfBorrowedBooks[i] != 0)
+				if (this->listOfBorrowedBooks[i] == 0)
 					this->listOfBorrowedBooks[i] = book1.id;
 
             cout << "Succ" << endl;
@@ -367,7 +367,7 @@ int main()
     //cout << lib.users[lib.userName2UserLibIndex(heh)].id << endl;
     cout << lib.books[lib.bookName2BookLibIndex(hah)].name << endl;
     lib.users[lib.userName2UserLibIndex(heh)].borrow_book(lib.books[lib.bookName2BookLibIndex(hah)]);
-    //lib.print_users_borrowing_book(lib.books[lib.bookName2BookLibIndex(hah)]);
+    lib.print_users_borrowing_book(lib.books[lib.bookName2BookLibIndex(hah)]);
     cout << lib.users[lib.userName2UserLibIndex(heh)].is_borrowed_book(lib.books[lib.bookName2BookLibIndex(hah)]) << endl;
 	return 0;
 }
