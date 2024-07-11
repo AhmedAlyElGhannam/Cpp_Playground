@@ -7,8 +7,8 @@ using namespace std;
 #define LIB_MAX_USERS		20
 
 // user ID shenanigans
-unsigned int book_id = 1;
-unsigned int user_id = 1;
+unsigned int book_id_glob = 1;
+unsigned int user_id_glob = 1;
 
 /**UNIT TEST PASS*/
 bool is_prefix(string s1, string s2) // s1 is prefix, s2 is og string
@@ -61,17 +61,9 @@ struct book
 	// METHODS
 	book()
 	{
-		// if (book_id > LIB_MAX_BOOKS)
-		// {
-		// 	cout << "Max Number of Books Reached!"
-		// 		 << endl
-		// 		 << "Cannot Add More!"
-		// 		 << endl;
-		// 	return;
-		// }
 		this->name = "";
-		this->id = book_id;
-		book_id++;
+		this->id = book_id_glob;
+		//book_id_glob++;
 		this->copies = 1; 
 	}
 	void inc_copies()
@@ -94,17 +86,8 @@ struct user
 	// METHODS
 	user()
 	{
-		// if (user_id > LIB_MAX_USERS)
-		// {
-		// 	cout << "Max Number of Users Reached!"
-		// 		 << endl
-		// 		 << "Cannot Add More!"
-		// 		 << endl;
-		// 	return;
-		// }
 		this->name = "";
-		this->id = user_id;
-		user_id++;
+		this->id = user_id_glob;
 		for (int i = 0; i < BOOK_BORROW_LIMIT; i++)
 			this->listOfBorrowedBooks[i] = 0;
 	} 
@@ -116,7 +99,7 @@ struct user
 
 		return false;
 	}
-	void borrow_book(struct book book1)
+	void borrow_book(struct book & book1)
 	{
 		// check if id is valid
 		// check if the copies of this book > 0
@@ -139,6 +122,8 @@ struct user
 			for (int i = 0; i < BOOK_BORROW_LIMIT; i++)
 				if (this->listOfBorrowedBooks[i] != 0)
 					this->listOfBorrowedBooks[i] = book1.id;
+
+            cout << "Succ" << endl;
 		}	
 		else // no copies available
 		{
@@ -150,7 +135,7 @@ struct user
 
 		return;
 	}
-	void return_book(struct book book1)
+	void return_book(struct book & book1)
 	{
 		// check if id is valid
 		// incement available copies && remove user to borrow list && remove book to list of borrowed books for user
@@ -282,6 +267,7 @@ struct library
 			struct book bookDumDum;
 			bookDumDum.name = bookName;
 			bookDumDum.copies = bookCopies;
+            bookDumDum.id = book_id_glob++;
 			
 			this->books[this->lib_book_count] = bookDumDum;
 			this->lib_book_count++;
@@ -305,7 +291,7 @@ struct library
 		{
 			struct user userDumDum;
 			userDumDum.name = userName;
-
+            userDumDum.id = user_id_glob++;
 			this->users[this->lib_user_count] = userDumDum;
 			this->lib_user_count++;
 		}
@@ -319,7 +305,7 @@ struct library
 
 		return;
 	}
-	void print_users_borrowing_book(struct book book1)
+	void print_users_borrowing_book(struct book & book1)
 	{
 		for (int i = 0; i < this->lib_user_count; i++)
 		{
@@ -350,136 +336,40 @@ struct library
 	}
 };
 
-
-// AUX Functions
-
-int prompt_message()
-{
-	int user_choice = -1;
-	cout << "\n\n"
-		 << "Enter Your Choice:"
-		 << "\n";
-	
-	cout << "1) Add a New Book to Library DB" << endl
-		 << "2) Search for a Book by Name Prefix" << endl
-		 << "3) Add a New User to Library DB" << endl
-		 << "4) Print Books in Library (By Name)" << endl
-		 << "5) Print Books in Library (By ID)" << endl
-		 << "6) User Borrow Request" << endl
-		 << "7) User Return Request" << endl
-		 << "8) Print Users who Borrowed a Book (Enter Book Name)" << endl
-		 << "9) Exit\n" << endl;
-
-	/*
-		add book
-		search for book by prefix
-		print users who borrowed book (takes book name)
-		print books in library by id
-		print books in library by name
-		add user
-		user borrow
-		user return
-		print users by name
-		exit 
-	*/
-
-	//user_choice = getchar();
-
-	cin >> user_choice;
-
-	return user_choice;
-}
-
-
-
-
-
-
-
-
 int main()
 {
-	char choice;
-	bool is_program_running = true;
-
-	struct library lib;
+    struct library lib;
 
 	string tempStr;
 	string tempStr2;
 	unsigned int tempInt;
-	
-	while (is_program_running)
-	{
-		cin.clear();
-		
-		switch (prompt_message())
-		{
-			case (1):
-				cout << "Enter Book Name && Number of Copies: " << endl;
-				cin >> tempStr >> tempInt;
-				lib.add_book(tempStr, tempInt);
-				break;
-			
-			case (2):
-				cout << "Enter Search Prefix: ";
-				cin >> tempStr;
-				lib.search_book_by_prefix(tempStr);
-				break;
-			
-			case (3):
-				cout << "Enter User Name: ";
-				cin >> tempStr;
-				//getline(cin, tempStr, '\n');
-				lib.add_user(tempStr);
-				break;
 
-			case (4):
-				lib.print_books_by_name();
-				break;
+    lib.add_book("The Way of Kings");
+    lib.add_book("A Feast For Crows");
+    lib.add_book("1984");
+    lib.add_book("20th Century Boys");
+    lib.add_book("Dune", 3);
 
-			case (5):
-				lib.print_books_by_id();
-				break;
-			
-			case (6):
-				cout << "Enter User Name && Books Name: ";
-				cin >> tempStr >> tempStr2;
-				// getline(cin, tempStr, '\n');
-				// cout << "Enter Book Name: ";
-				// getline(cin, tempStr2, '\n');
-				lib.users[lib.userName2UserLibIndex(tempStr)].borrow_book(lib.books[lib.bookName2BookLibIndex(tempStr2)]);
-				break;
+    lib.add_user("Mohsen");
+    lib.add_user("Sherif");
+    lib.add_user("Yahia");
+    lib.add_user("Ahmed");
 
-			case (7):
-				cout << "Enter User Name: ";
-				getline(cin, tempStr, '\n');
-				cout << "Enter Book Name: ";
-				getline(cin, tempStr2, '\n');
-				lib.users[lib.userName2UserLibIndex(tempStr)].return_book(lib.books[lib.bookName2BookLibIndex(tempStr2)]);
-				break;
+    // testing sort functionality (NEEDS WORK) -- Now it works XDD
+    lib.print_books_by_name();
+    lib.print_books_by_id();
 
-			case (8):
-				cout << "Enter Book Name: ";
-				cin >> tempStr;
-				//getline(cin, tempStr, '\n');
-				lib.print_users_borrowing_book(lib.books[lib.bookName2BookLibIndex(tempStr)]);
-				break;
+    lib.print_users_by_name();
 
-			case (9):
-				is_program_running = false;
-				break;
-
-			default:
-				cout << "Invalid Input!"
-					 << "\n"
-					 << "Try Again."
-					 << endl;
-				break;
-		}
-	}
-	
-	cout << "Adios, bitches!"
-		 << endl;
-	
+    // testing borrowing functionality
+    string heh = "Mohsen";
+    string hah = "A Feast For Crows";
+    //cout << lib.users[lib.userName2UserLibIndex(heh)].id << endl;
+    cout << lib.books[lib.bookName2BookLibIndex(hah)].name << endl;
+    lib.users[lib.userName2UserLibIndex(heh)].borrow_book(lib.books[lib.bookName2BookLibIndex(hah)]);
+    //lib.print_users_borrowing_book(lib.books[lib.bookName2BookLibIndex(hah)]);
+    cout << lib.users[lib.userName2UserLibIndex(heh)].is_borrowed_book(lib.books[lib.bookName2BookLibIndex(hah)]) << endl;
 	return 0;
 }
+
+
